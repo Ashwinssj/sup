@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supply Chain Management Assistant</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Supply Chain Management Assistant</h1>
+        <div class="nav-links">
+            <a href="/dashboard" class="nav-link">Dashboard</a>
+            <a href="/" class="nav-link active">AI Assistant</a>
+        </div>
+        
+        <form method="post" action="/" id="queryForm">
+            <label for="product">Product Name:</label>
+            <input type="text" id="product" name="product" required placeholder="Enter product name">
+            
+            <label for="question">Your Question:</label>
+            <input type="text" id="question" name="question" required placeholder="Ask about inventory, sourcing, etc.">
+            
+            <button type="submit" id="submitBtn">Get Supply Chain Advice</button>
+        </form>
+
+        {% if response %}
+            <div class="response-box">
+                <h3>Response</h3>
+                <div class="response-content">
+                    {{ response|safe }}
+                </div>
+            </div>
+        {% endif %}
+
+        {% if error %}
+            <div class="error-box">
+                {{ error }}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supply Chain Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <h1>Supply Chain Management Dashboard</h1>
+            <nav>
+                <ul>
+                    <li><a href="/" class="nav-link">AI Assistant</a></li>
+                    <li><a href="#" class="nav-link active">Dashboard</a></li>
+                    <li><a href="#" class="nav-link">Reports</a></li>
+                    <li><a href="#" class="nav-link">Settings</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <div class="dashboard-grid">
+            <!-- New AI Analytics Overview Card -->
+            <div class="dashboard-card ai-analytics-card">
+                <h2>AI Analytics Overview</h2>
+                <div class="ai-analytics-summary">
+                    <p>This dashboard leverages advanced AI algorithms to provide deeper insights into your supply chain operations. The AI-powered analytics include:</p>
+                    <ul>
+                        <li><strong>Deep Learning Forecasting:</strong> Neural network models for highly accurate demand prediction</li>
+                        <li><strong>Reinforcement Learning Optimization:</strong> AI agents that learn optimal inventory policies</li>
+                        <li><strong>Advanced Anomaly Detection:</strong> Identifying unusual patterns in your supply chain data</li>
+                        <li><strong>Natural Language Processing:</strong> Analyzing supplier communications and market reports</li>
+                        <li><strong>Multi-Agent Workflow:</strong> Coordinated AI agents working together on complex supply chain problems</li>
+                    </ul>
+                    <div class="ai-actions">
+                        <button id="run-ai-workflow" class="ai-action-button">Run Multi-Agent Workflow</button>
+                        <button id="view-ai-insights" class="ai-action-button">View AI Insights</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dashboard-card map-card">
+                <h2>Supply Chain Map</h2>
+                <div id="supply-chain-map"></div>
+                <div class="map-legend">
+                    <div class="legend-item"><span class="legend-marker supplier"></span> Supplier</div>
+                    <div class="legend-item"><span class="legend-marker warehouse"></span> Warehouse</div>
+                    <div class="legend-item"><span class="legend-marker route"></span> Route</div>
+                </div>
+            </div>
+            
+            <div class="dashboard-card">
+                <h2>Key Performance Indicators</h2>
+                <div class="kpi-grid">
+                    <div class="kpi-item">
+                        <h3>On-Time Delivery</h3>
+                        <div class="kpi-value">92%</div>
+                        <div class="kpi-trend positive">↑ 3%</div>
+                    </div>
+                    <div class="kpi-item">
+                        <h3>Inventory Turnover</h3>
+                        <div class="kpi-value">4.7</div>
+                        <div class="kpi-trend positive">↑ 0.3</div>
+                    </div>
+                    <div class="kpi-item">
+                        <h3>Order Fulfillment</h3>
+                        <div class="kpi-value">88%</div>
+                        <div class="kpi-trend negative">↓ 2%</div>
+                    </div>
+                    <div class="kpi-item">
+                        <h3>Supply Chain Cost</h3>
+                        <div class="kpi-value">$1.2M</div>
+                        <div class="kpi-trend negative">↑ 5%</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dashboard-card">
+                <h2>Historical Performance</h2>
+                <div class="chart-container">
+                    <canvas id="performance-chart"></canvas>
+                </div>
+            </div>
+            
+            <div class="dashboard-card">
+                <h2>Inventory Status</h2>
+                <div class="inventory-table-container">
+                    <table id="inventory-table" class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Category</th>
+                                <th>Inventory</th>
+                                <th>Demand</th>
+                                <th>Lead Time</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="dashboard-card">
+                <h2>Risk Assessment</h2>
+                <div class="risk-matrix-container">
+                    <div id="risk-matrix"></div>
+                </div>
+                <div id="risk-details"></div>
+            </div>
+            
+            <div class="dashboard-card">
+                <h2>Scenario Simulation</h2>
+                <div class="simulation-controls">
+                    <div class="form-group">
+                        <label for="scenario-type">Scenario Type:</label>
+                        <select id="scenario-type">
+                            <option value="supplier-disruption">Supplier Disruption</option>
+                            <option value="demand-surge">Demand Surge</option>
+                            <option value="transportation-delay">Transportation Delay</option>
+                            <option value="quality-issue">Quality Issue</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="scenario-severity">Severity (1-10):</label>
+                        <input type="range" id="scenario-severity" min="1" max="10" value="5">
+                        <span id="severity-value">5</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="scenario-duration">Duration (days):</label>
+                        <input type="number" id="scenario-duration" min="1" max="90" value="14">
+                    </div>
+                    <button id="run-simulation" class="simulation-button">Run Simulation</button>
+                </div>
+                <div id="simulation-results" class="simulation-results"></div>
+            </div>
+            <!-- Advanced Forecast Card -->
+            <div class="dashboard-card">
+                <h2>AI-Powered Demand Forecast</h2>
+                <div class="chart-container">
+                    <canvas id="forecast-chart"></canvas>
+                </div>
+                <div class="forecast-controls">
+                    <button id="forecast-refresh" class="refresh-button">Refresh Forecast</button>
+                </div>
+            </div>
+            
+            <!-- Anomaly Detection Card -->
+            <div class="dashboard-card">
+                <h2>Supply Chain Anomaly Detection</h2>
+                <div id="anomaly-container" class="anomaly-container">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+            
+            <!-- AI Assistant Card -->
+            <div class="dashboard-card">
+                <h2>AI Supply Chain Assistant</h2>
+                <form id="ai-assistant-form">
+                    <div class="form-group">
+                        <label for="ai-product">Product Name:</label>
+                        <input type="text" id="ai-product" required placeholder="Enter product name">
+                    </div>
+                    <div class="form-group">
+                        <label for="ai-question">Your Question:</label>
+                        <input type="text" id="ai-question" required placeholder="Ask about inventory, sourcing, etc.">
+                    </div>
+                    <button type="submit" class="simulation-button">Get Advice</button>
+                </form>
+                <div id="ai-response" class="simulation-results"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/static/dashboard.js"></script>
+</body>
+</html>
